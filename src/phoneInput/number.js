@@ -61,23 +61,25 @@ export default class PhoneNumber extends React.Component {
       "aria-required": true,
       "aria-label": "Phone number"
     };
+    let error = null;
     if (!this.state.valid && this.props.ISOCode) {
       const exampleNumber = getExampleNumber(this.props.ISOCode, examples);
       const phoneNumber = parsePhoneNumberFromString(
         exampleNumber.number
       ).format("NATIONAL");
 
+      error = `Invalid phone number it should look something like ${phoneNumber}`;
+
       ariaProps["aria-invalid"] = true;
-      ariaProps[
-        "aria-label"
-      ] = `Invalid phone number it should look somehting like ${phoneNumber}`;
+      ariaProps["aria-label"] = error;
     } else if (!this.state.valid) {
+      error = `Invalid phone number please select a country`;
       ariaProps["aria-invalid"] = true;
       ariaProps["aria-label"] = `Invalid phone number please select a country`;
     }
     return (
       <div className="accessible-form-group accessible-phone-number">
-        <label>{ariaProps["aria-label"]}</label>
+        <label>Phone number</label>
         <input
           type="text"
           onChange={this.validatePhone}
@@ -86,6 +88,7 @@ export default class PhoneNumber extends React.Component {
           aria-required="true"
           {...ariaProps}
         />
+        {!this.state.valid ? <p className="error">{error}</p> : ""}
       </div>
     );
   }
