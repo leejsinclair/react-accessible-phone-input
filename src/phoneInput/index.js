@@ -20,6 +20,7 @@ export default class PhoneInput extends React.Component {
 
   onValid(phoneNumber) {
     this.setState({ final: phoneNumber });
+    this.props.onChange(phoneNumber);
   }
 
   render() {

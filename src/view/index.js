@@ -8,14 +8,14 @@ export default class Home extends React.Component {
   }
 
   numberChange(number) {
-    alert(number);
+    console.log(number);
   }
 
   render() {
     return (
       <div>
         <p>Test phone input</p>
-        <PhoneInput />
+        <PhoneInput onChange={this.numberChange} />
       </div>
     );
   }
